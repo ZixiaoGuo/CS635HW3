@@ -1,3 +1,5 @@
+package com.zixiaoguo.persistancedatabase.main;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IDGenerator {

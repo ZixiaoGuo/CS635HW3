@@ -1,13 +1,18 @@
+package com.zixiaoguo.persistancedatabase.main;
+
+import com.zixiaoguo.persistancedatabase.main.inventory.Inventory;
+
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-public class Inventory {
+public class BaseInventory implements Inventory {
+    //TODO: make the methods call the invoker to create the commands and finish the rest
+    //TODO: probably also change the memento to auto save after the command call 10 times
 
     private ArrayList<Book> books;
 
-    public Inventory() {
+    public BaseInventory() {
         books = new ArrayList<>();
     }
 
@@ -16,15 +21,27 @@ public class Inventory {
     }
 
     // used for memento to restore state
-    protected void setBooks(ArrayList<Book> books) {
+    public void setBooks(ArrayList<Book> books) {
         this.books = books;
     }
 
-    public boolean insertBook(Book book) {
-        books.add(book);
-        return true;
-    }
+    public boolean add(Book book) {
+        boolean found = false;
+        for (Book bookIterator : books) {
+            if (Objects.equals(bookIterator.getId(), book.getId())) {
+                found = true;
+                bookIterator.incrementQuantity();
+                break;
+            }
+        }
+        if (!found) {
+            books.add(book);
+            found = true;
+        }
 
+        return found;
+    }
+/*
     public boolean incrementBookCopy(Book book) {
         boolean found = false;
         for (Book bookIterator : books) {
@@ -41,6 +58,8 @@ public class Inventory {
 
         return found;
     }
+
+ */
 
     public boolean sellBook (Book book) {
         boolean found = false;
@@ -63,7 +82,7 @@ public class Inventory {
         }
     }
 
-    public int getPrice(Long id) {
+    public int getPrice(int id) {
         for (Book bookIterator : books) {
             if (Objects.equals(bookIterator.getId(), id)) {
                 return bookIterator.getPrice();
@@ -83,16 +102,11 @@ public class Inventory {
 
     @Override
     public String toString() {
-        return "Inventory{" +
+        return "com.zixiaoguo.persistancedatabase.main.Inventory{" +
                 "books=" + books +
                 '}';
     }
 
-    public void undo(Originator originator) {
-        books = originator.getState();
-    }
 
-    public void save(Originator originator) {
-        originator.setState(books);
-    }
+
 }

@@ -1,3 +1,5 @@
+package com.zixiaoguo.persistancedatabase.main;
+
 import java.io.Serializable;
 
 public class Book implements Serializable {
@@ -55,7 +57,7 @@ public class Book implements Serializable {
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "com.zixiaoguo.persistancedatabase.main.Book{" +
                 "name='" + name + '\'' +
                 ", price=" + price +
                 ", id=" + id +

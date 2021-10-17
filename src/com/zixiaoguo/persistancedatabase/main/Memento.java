@@ -1,14 +1,13 @@
+package com.zixiaoguo.persistancedatabase.main;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Memento implements Serializable {
     private ArrayList<Book> state;
 
-
-
-    protected void setState(ArrayList<Book> books) {
-        //TODO: this might be shallow copy
-        this.state = new ArrayList<>(books);    //create a copy of the state of the old inventory
+    public Memento(ArrayList<Book> state) {
+        this.state = new ArrayList<>(state);
     }
 
     public ArrayList<Book> getState() {
@@ -17,7 +16,7 @@ public class Memento implements Serializable {
 
     @Override
     public String toString() {
-        return "Memento{" +
+        return "com.zixiaoguo.persistancedatabase.main.Memento{" +
                 "state=" + state +
                 '}';
     }
